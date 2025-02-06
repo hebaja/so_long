@@ -15,13 +15,13 @@ void	open_map_error(void)
 	exit(EXIT_FAILURE);
 }
 
-int	get_map_length()
+int	get_map_length(char *map_name)
 {
 	size_t	len;
 	char	*str;
 	int	fd;
 
-	fd = open("maps/map.txt", O_RDONLY);
+	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
 		open_map_error();
 	str = get_next_line(fd);
@@ -37,14 +37,14 @@ int	get_map_length()
 	return (len);
 }
 
- int	get_map_height()
+ int	get_map_height(char *map_name)
 {
 	size_t	len;
 	char	*str;
 	int	fd;
 
 	len = 0;
-	fd = open("maps/map.txt", O_RDONLY);
+	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
 		open_map_error();
 	str = get_next_line(fd);

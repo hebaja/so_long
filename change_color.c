@@ -68,6 +68,6 @@ int	main()
 	int	img[6][5] = {{1,1,1,0,0},{1,1,1,0,0},{1,1,1,1,0},{1,1,0,0,0},{1,1,0,1,1},{0,0,0,1,1}};
 
 	print_img(img);
-	change_color(img, 3, 2, 4);
+	change_color(img, 3, 1, 4);
 	return (0);
 }

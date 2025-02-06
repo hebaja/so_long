@@ -1,13 +1,13 @@
 #include "../include/so_long.h"
 
-char	**get_map_content(int length, int height)
+char	**get_map_content(char *map_name, int length, int height)
 {
 	int	fd;
 	int	i;
 	char	*str;
 	char	**map;
 
-	fd = open("maps/map.txt", O_RDONLY);
+	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
 		open_map_error();
 	map = alloc_map_mem(height);
