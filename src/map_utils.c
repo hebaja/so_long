@@ -1,19 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hebatist <hebatist@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/11 17:02:58 by hebatist          #+#    #+#             */
+/*   Updated: 2025/02/11 17:03:00 by hebatist         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
-
-void	print_map(char **map, int height)
-{
-	int	i;
-
-	i = -1;
-	while (++i < height)
-		ft_printf("%s\n", map[i]);
-}
-
-void	open_map_error(void)
-{
-	perror("Map file not found");
-	exit(EXIT_FAILURE);
-}
 
 int	get_map_length(char *map_name)
 {
@@ -23,21 +20,28 @@ int	get_map_length(char *map_name)
 
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
-		open_map_error();
+		return (-1);
 	str = get_next_line(fd);
+	if (str == NULL)
+		return (-2);
 	len = ft_strlen(str);
 	while (str != NULL)
 	{
 		free(str);
 		str = get_next_line(fd);
 		if (str != NULL && len != ft_strlen(str))
-			return (-1);
+		{
+			free(str);
+			close(fd);
+			return (-2);
+		}
 	}
 	free (str);
+	close(fd);
 	return (len);
 }
 
- int	get_map_height(char *map_name)
+int	get_map_height(char *map_name)
 {
 	size_t	len;
 	char	*str;
@@ -46,8 +50,10 @@ int	get_map_length(char *map_name)
 	len = 0;
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
-		open_map_error();
+		return (-1);
 	str = get_next_line(fd);
+	if (str == NULL)
+		return (-2);
 	while (str != NULL)
 	{
 		free(str);

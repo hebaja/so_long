@@ -1,0 +1,37 @@
+char_utils ->
+int     exit_quant(char **map)
+int     player_quant(char **map)
+int     collec_quant(char **map)
+int     *player_pos(char **map)
+int     invalid_chars_quant(char **map)
+
+map_content_utils ->
+char    **get_map_content(char *map_name, int length, int height)
+char    **alloc_map_mem(int     height)
+void    clean_map(char **map, int height)
+void    clean_t_map(t_map *st_map, int is_failure)
+
+map_iter_utils ->
+int     map_iter(char **map, int (*cmp)(char *line))
+int     map_iter_char(char **map, char c, int (*cmp)(char *line, char c))
+int     *map_iter_pos(char **map, char c, int (*cmp)(char *line, char c))
+int     check_char_quant(char *line, char c)
+int     get_char_y_pos(char *line, char c)
+
+map_utils ->
+void    print_map(char **map, int height)
+void    open_map_error(void)
+int     get_map_length(char *map_name)
+int    get_map_height(char *map_name)
+
+path_utils ->
+void    flood_fill(t_map *st_map, int x, int y)
+void    validate_path(t_map *st_map, int collec_quant)
+
+valid_char_utils ->
+int     check_valid_chars(char *line)
+int     map_has_valid_walls(char **map, int length, int height)
+
+st_map_utils ->
+void	copy_map(t_map *st_map)
+t_map	*build_st_map(chat **map, int length, int height)
