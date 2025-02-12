@@ -6,7 +6,7 @@
 /*   By: hebatist <hebatist@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:02:34 by hebatist          #+#    #+#             */
-/*   Updated: 2025/02/11 17:02:36 by hebatist         ###   ########.fr       */
+/*   Updated: 2025/02/12 00:55:58 by hebatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	print_inv_map_message(void)
 
 void	copy_map_lines(char **map, char *map_name, int length)
 {
-	int	fd;
-	int	i;
-	char	*str;
+	int			fd;
+	int			i;
+	char		*str;
 
 	i = 0;
 	fd = open(map_name, O_RDONLY);
@@ -39,9 +39,9 @@ void	copy_map_lines(char **map, char *map_name, int length)
 
 char	**get_map_content(char *map_name, int length, int height)
 {
-	int	fd;
-	int	i;
-	char	**map;
+	int			fd;
+	int			i;
+	char		**map;
 
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
@@ -65,7 +65,7 @@ char	**get_map_content(char *map_name, int length, int height)
 
 int	fill_data(t_map_data *st_map_data, char *map_name, int length, int height)
 {
-	char **map;
+	char	**map;
 
 	map = get_map_content(map_name, length, height);
 	if (map == NULL)
@@ -76,7 +76,9 @@ int	fill_data(t_map_data *st_map_data, char *map_name, int length, int height)
 	st_map_data->length = length;
 	st_map_data->height = height;
 	st_map_data->map = map;
-	st_map_data->is_walls_valid = map_has_valid_walls(map, st_map_data->length, st_map_data->height);
+	st_map_data->is_walls_valid = map_has_valid_walls(map,
+			st_map_data->length,
+			st_map_data->height);
 	st_map_data->invalid_chars_qt = invalid_chars_quant(map);
 	st_map_data->exit_qt = exit_quant(map);
 	st_map_data->player_qt = player_quant(map);
@@ -86,9 +88,9 @@ int	fill_data(t_map_data *st_map_data, char *map_name, int length, int height)
 
 t_map_data	*build_map_data(char *map_name)
 {
+	int			length;
+	int			height;
 	t_map_data	*st_map_data;
-	int	length;
-	int	height;
 
 	length = get_map_length(map_name);
 	height = get_map_height(map_name);

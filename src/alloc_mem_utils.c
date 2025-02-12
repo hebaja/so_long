@@ -6,13 +6,13 @@
 /*   By: hebatist <hebatist@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:02:14 by hebatist          #+#    #+#             */
-/*   Updated: 2025/02/11 17:02:18 by hebatist         ###   ########.fr       */
+/*   Updated: 2025/02/12 00:41:43 by hebatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-char	**alloc_map_mem(int	height)
+char	**alloc_map_mem(int height)
 {
 	char	**map;
 

@@ -6,17 +6,19 @@
 /*   By: hebatist <hebatist@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:03:09 by hebatist          #+#    #+#             */
-/*   Updated: 2025/02/11 17:03:12 by hebatist         ###   ########.fr       */
+/*   Updated: 2025/02/12 00:57:20 by hebatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void    flood_fill(t_map *st_map, int x, int y, int is_init)
+void	flood_fill(t_map *st_map, int x, int y, int is_init)
 {
 	if (!is_init)
 	{
-		if (st_map->map_copy[x][y] != '0' && st_map->map_copy[x][y] != 'E' && st_map->map_copy[x][y] != 'C')
+		if (st_map->map_copy[x][y] != '0'
+			&& st_map->map_copy[x][y] != 'E'
+			&& st_map->map_copy[x][y] != 'C')
 			return ;
 		if (st_map->map_copy[x][y] == 'E')
 			st_map->exit_found = 1;

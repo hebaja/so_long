@@ -6,7 +6,7 @@
 /*   By: hebatist <hebatist@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:03:31 by hebatist          #+#    #+#             */
-/*   Updated: 2025/02/11 17:03:32 by hebatist         ###   ########.fr       */
+/*   Updated: 2025/02/12 01:13:33 by hebatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	open_map_error(void)
 
 void	copy_map(t_map *st_map)
 {
-	int	i;
-	char	**map_copy;
+	int			i;
+	char		**map_copy;
 
 	i = -1;
 	map_copy = alloc_map_mem(st_map->length);
@@ -39,7 +39,7 @@ void	copy_map(t_map *st_map)
 
 t_map	*build_st_map(t_map_data *st_map_data)
 {
-	t_map *st_map;
+	t_map	*st_map;
 
 	st_map = (t_map *)malloc(sizeof(t_map));
 	if (st_map == NULL)
@@ -65,7 +65,9 @@ t_map	*validate_and_build_t_map(char *map_name)
 	st_map_data = build_map_data(map_name);
 	if (st_map_data == NULL)
 		exit(EXIT_FAILURE);
-	if (st_map_data->length < 0 || !st_map_data->is_walls_valid || st_map_data->invalid_chars_qt > 0 || st_map_data->exit_qt != 1 || st_map_data->player_qt != 1 || st_map_data->collec_qt < 1)
+	if (st_map_data->length < 0 || !st_map_data->is_walls_valid
+		|| st_map_data->invalid_chars_qt > 0 || st_map_data->exit_qt != 1
+		|| st_map_data->player_qt != 1 || st_map_data->collec_qt < 1)
 	{
 		clean_t_map_data(st_map_data);
 		print_inv_map_message();

@@ -6,7 +6,7 @@
 /*   By: hebatist <hebatist@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:02:26 by hebatist          #+#    #+#             */
-/*   Updated: 2025/02/11 17:02:29 by hebatist         ###   ########.fr       */
+/*   Updated: 2025/02/12 00:42:17 by hebatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	collec_quant(char **map)
 
 int	*get_player_pos(char **map)
 {
-	int *pos;
+	int	*pos;
 
 	pos = map_iter_pos(map, 'P', get_char_y_pos);
 	return (pos);

@@ -6,16 +6,16 @@
 /*   By: hebatist <hebatist@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:02:42 by hebatist          #+#    #+#             */
-/*   Updated: 2025/02/11 17:02:44 by hebatist         ###   ########.fr       */
+/*   Updated: 2025/02/12 00:56:36 by hebatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-int     map_iter(char **map, int (*cmp)(char *line))
+int	map_iter(char **map, int (*cmp)(char *line))
 {
-	int     i;
-	int     res;
+	int	i;
+	int	res;
 
 	i = 0;
 	res = 0;
@@ -28,10 +28,10 @@ int     map_iter(char **map, int (*cmp)(char *line))
 	return (res);
 }
 
-int     map_iter_char(char **map, char c, int (*cmp)(char *line, char c))
+int	map_iter_char(char **map, char c, int (*cmp)(char *line, char c))
 {
-	int     i;
-	int     res;
+	int	i;
+	int	res;
 
 	i = 0;
 	res = 0;
@@ -46,8 +46,8 @@ int     map_iter_char(char **map, char c, int (*cmp)(char *line, char c))
 
 int	*map_iter_pos(char **map, char c, int (*cmp)(char *line, char c))
 {
-	int     x;
-	int     y;
+	int				x;
+	int				y;
 	static int		pos[2];
 
 	x = 0;
@@ -60,7 +60,7 @@ int	*map_iter_pos(char **map, char c, int (*cmp)(char *line, char c))
 			pos[0] = x;
 			pos[1] = y;
 			break ;
-		}	
+		}
 		if (map[x + 2] == NULL)
 			break ;
 	}
