@@ -53,6 +53,9 @@ t_map	*build_st_map(t_map_data *st_map_data)
 	st_map->player_pos = get_player_pos(st_map_data->map);
 	st_map->exit_found = 0;
 	st_map->gettable_collecs = 0;
+	st_map->collected_collecs = 0;
+	st_map->moves = 0;
+	st_map->scaped = 0;
 	copy_map(st_map);
 	return (st_map);
 }

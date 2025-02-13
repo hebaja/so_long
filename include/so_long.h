@@ -26,6 +26,9 @@ typedef struct s_map
 	int		*player_pos;
 	int		exit_found;
 	int		gettable_collecs;
+	int		collected_collecs;
+	int		moves;
+	int		scaped;
 }	t_map;
 
 typedef struct s_map_data
@@ -50,10 +53,12 @@ void		clean_t_map(t_map *st_map, int is_failure);
 void		clean_t_map_data(t_map_data *st_map_data);
 void		open_map_error(void);
 void		print_map(char **map, int height);
+void		print_st_map(t_map *st_map);
 void		validate_path(t_map *st_map);
 void		print_inv_map_message(void);
 void		print_map_checkings(char **map, int length, int height);
 void		print_t_map_checkings(t_map *st_map);
+void		raw_play(t_map *st_map); /* TODO should be removed */
 int			get_map_length(char *map_name);
 int			get_map_height(char *map_name);
 int			is_one_player(char **map, int length, int height);

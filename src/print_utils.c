@@ -41,3 +41,15 @@ void	print_map(char **map, int height)
 	while (++i < height)
 		ft_printf("%s\n", map[i]);
 }
+
+void	print_st_map(t_map *st_map)
+{
+	int	i;
+
+	i = -1;
+	while (++i < st_map->height)
+		ft_printf("%s\n", st_map->map[i]);
+	ft_printf("moves -> %d\n", st_map->moves);
+	ft_printf("missing collectables -> %d\n", 
+		   st_map->gettable_collecs - st_map->collected_collecs);
+}

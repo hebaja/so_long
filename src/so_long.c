@@ -33,11 +33,14 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		st_map = validate_and_build_t_map(argv[1]);
-		print_map_checkings(st_map->map, st_map->length, st_map->height);
+		// print_map_checkings(st_map->map, st_map->length, st_map->height);
 		validate_path(st_map);
-		print_t_map_checkings(st_map);
+		// print_t_map_checkings(st_map);
 		gameplay_validation(st_map);
 		// TODO insert gameplay here
+		print_st_map(st_map);
+		raw_play(st_map);
+
 		clean_t_map(st_map, 0);
 	}
 	else
