@@ -36,7 +36,8 @@ void	clean_map(char **map, int height)
 void	clean_t_map(t_map *st_map, int is_failure)
 {
 	clean_map(st_map->map, st_map->height);
-	clean_map(st_map->map_copy, st_map->height);
+	if (st_map->map_copy != NULL)
+		clean_map(st_map->map_copy, st_map->height);
 	free(st_map);
 	st_map = NULL;
 	if (is_failure)

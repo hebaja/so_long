@@ -18,7 +18,7 @@ void	open_map_error(void)
 	exit(EXIT_FAILURE);
 }
 
-void	copy_map(t_map *st_map)
+char  **copy_map(t_map *st_map)
 {
 	int			i;
 	char		**map_copy;
@@ -34,7 +34,7 @@ void	copy_map(t_map *st_map)
 	i = -1;
 	while (st_map->map[++i])
 		ft_strlcpy(map_copy[i], st_map->map[i], st_map->length);
-	st_map->map_copy = map_copy;
+	return (map_copy);
 }
 
 t_map	*build_st_map(t_map_data *st_map_data)
@@ -56,7 +56,7 @@ t_map	*build_st_map(t_map_data *st_map_data)
 	st_map->collected_collecs = 0;
 	st_map->moves = 0;
 	st_map->scaped = 0;
-	copy_map(st_map);
+	st_map->map_copy = copy_map(st_map);
 	return (st_map);
 }
 

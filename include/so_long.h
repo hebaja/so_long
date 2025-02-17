@@ -43,6 +43,20 @@ typedef struct s_map_data
 	int		collec_qt;
 }	t_map_data;
 
+typedef struct s_mlx
+{
+	void    *mlx;
+	void    *win;
+	void	*tile_img;
+	void    *wall_img;
+	void	*player_img;
+	void	*collec_img;
+	void	*exit_img;
+	t_map	*st_map;
+	int             img_width;
+	int             img_height;
+}	t_mlx;
+
 t_map_data	*build_map_data(char *map_name);
 t_map		*build_st_map(t_map_data *st_map_data);
 t_map		*validate_and_build_t_map(char *map_name);
@@ -59,6 +73,13 @@ void		print_inv_map_message(void);
 void		print_map_checkings(char **map, int length, int height);
 void		print_t_map_checkings(t_map *st_map);
 void		raw_play(t_map *st_map); /* TODO should be removed */
+void		load_screen(t_map *st_map);
+void		paint_screen(t_mlx *st_mlx, int width, int height);
+
+void		move(t_map *st_map, int direction, int is_vertical);
+char  **copy_map(t_map *st_map);
+
+int			draw_screen(t_mlx *st_mlx, t_map *st_map); /*TODO check return */
 int			get_map_length(char *map_name);
 int			get_map_height(char *map_name);
 int			is_one_player(char **map, int length, int height);
