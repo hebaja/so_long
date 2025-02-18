@@ -1,12 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gameplay_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hebatist <hebatist@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/18 01:01:41 by hebatist          #+#    #+#             */
+/*   Updated: 2025/02/18 01:01:43 by hebatist         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
-
-int	is_char(char pos, char check)
-{
-	int	res;
-
-	res = pos == check;
-	return (res);
-}
 
 int	is_all_collected(t_map *st_map)
 {
@@ -30,6 +34,27 @@ void	gameplay_validation(t_map *st_map)
 	}
 }
 
+void	get_player_pos(t_map *st_map)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (++x < st_map->height -1)
+	{
+		y = 0;
+		while (++y < st_map->length -1)
+		{
+			if (st_map->map[x][y] == 'P')
+			{
+				st_map->pos_x = x;
+				st_map->pos_y = y;
+				break ;
+			}
+		}
+	}
+}
+
 void	get_next_pos(t_map *st_map, int direction, int is_vertical)
 {
 	if (is_vertical)
@@ -42,5 +67,34 @@ void	get_next_pos(t_map *st_map, int direction, int is_vertical)
 		st_map->next_x = st_map->pos_x;
 		st_map->next_y = st_map->pos_y + direction;
 	}
-	return (next_pos);
+}
+
+void	move(t_map *st_map, int direction, int is_vertical)
+{
+	int	x;
+	int y;
+	int	nx;
+	int	ny;
+
+	get_player_pos(st_map);
+	get_next_pos(st_map, direction, is_vertical);
+	x = st_map->pos_x;
+	y = st_map->pos_y;
+	nx = st_map->next_x;
+	ny = st_map->next_y;
+	if (!is_char(st_map->map[nx][ny], '1'))
+	{
+		if (is_char(st_map->map[nx][ny], 'E'))
+		{
+			if (is_all_collected(st_map))
+				st_map->scaped = 1;
+			else
+				return ;
+		}
+		if (is_char(st_map->map[nx][ny], 'C'))
+			st_map->collected_collecs++;
+		st_map->map[x][y] = '0';
+		st_map->map[nx][ny] = 'P';
+		st_map->moves++;
+	}
 }

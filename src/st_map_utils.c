@@ -50,13 +50,13 @@ t_map	*build_st_map(t_map_data *st_map_data)
 	st_map->length = st_map_data->length;
 	st_map->height = st_map_data->height;
 	st_map->map = st_map_data->map;
-	st_map->player_pos = get_player_pos(st_map_data->map);
 	st_map->exit_found = 0;
 	st_map->gettable_collecs = 0;
 	st_map->collected_collecs = 0;
 	st_map->moves = 0;
 	st_map->scaped = 0;
 	st_map->map_copy = copy_map(st_map);
+	get_player_pos(st_map);
 	return (st_map);
 }
 

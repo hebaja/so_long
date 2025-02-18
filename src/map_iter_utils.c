@@ -44,29 +44,6 @@ int	map_iter_char(char **map, char c, int (*cmp)(char *line, char c))
 	return (res);
 }
 
-int	*map_iter_pos(char **map, char c, int (*cmp)(char *line, char c))
-{
-	int				x;
-	int				y;
-	static int		pos[2];
-
-	x = 0;
-	y = 0;
-	while (map[++x] != NULL)
-	{
-		y = cmp(map[x], c);
-		if (y > -1)
-		{
-			pos[0] = x;
-			pos[1] = y;
-			break ;
-		}
-		if (map[x + 2] == NULL)
-			break ;
-	}
-	return (pos);
-}
-
 int	check_char_quant(char *line, char c)
 {
 	int	i;

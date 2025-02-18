@@ -35,3 +35,45 @@ int     map_has_valid_walls(char **map, int length, int height)
 st_map_utils ->
 void	copy_map(t_map *st_map)
 t_map	*build_st_map(chat **map, int length, int height)
+
+
+/////////////////////////////////////////////////////////
+
+void    print_map_checkings(char **map, int length, int height)
+{
+        ft_printf("invalid walls? -> %d\n", map_has_valid_walls(
+                        map, length, height));
+        ft_printf("invalid chars -> %d\n", invalid_chars_quant(map));
+        ft_printf("exit quantity -> %d\n", exit_quant(map));
+        ft_printf("player quantity -> %d\n", player_quant(map));
+        ft_printf("collec quantity -> %d\n", collec_quant(map));
+}
+/* TODO remove this */
+void    print_t_map_checkings(t_map *st_map)
+{
+        ft_printf("exit found? -> %d\n", st_map->exit_found);
+        ft_printf("gettable collecs -> %d\n", st_map->gettable_collecs);
+        print_map(st_map->map, st_map->height);
+        print_map(st_map->map_copy, st_map->height);
+}
+/* TODO remove this */
+void    print_map(char **map, int height)
+{
+        int     i;
+
+        i = -1;
+        while (++i < height)
+                ft_printf("%s\n", map[i]);
+}
+/* TODO remove this */
+void    print_st_map(t_map *st_map)
+{
+        int     i;
+
+        i = -1;
+        while (++i < st_map->height)
+                ft_printf("%s\n", st_map->map[i]);
+        ft_printf("moves -> %d\n", st_map->moves);
+        ft_printf("missing collectables -> %d\n",
+                   st_map->gettable_collecs - st_map->collected_collecs);
+}

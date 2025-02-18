@@ -3,25 +3,23 @@
 
 void    draw_xpm_with_transparency(t_mlx *st_mlx, void *img, int x, int y)
 {
-    int i, j;
-    int color;
-    char *data;
-    int bpp, size_line, endian;
-        int     white_color = 16777215;
-        int     transparent_color = 0;
+    int			i;
+	int			j;
+    int			color;
+	int			img_size;
+    char	*data;
 
-    data = mlx_get_data_addr(img, &bpp, &size_line, &endian);
-
-    for (j = 0; j < 64; j++)
+	i = -1;
+	img_size = 64;
+    data = mlx_get_data_addr(img, &st_mlx->img_bpp, &st_mlx->img_size_line, &st_mlx->img_endian);
+	while (++i < img_size)
     {
-        for (i = 0; i < 64; i++)
+        for (j = 0; j < img_size; j++)
+		while (++j < img_size)
         {
-            // Get the color at (i, j)
-            color = *(int *)(data + (j * size_line + i * (bpp / 8)));
-
-            // Check if the pixel is transparent (spaces in XPM)
-            if ((color & white_color) != transparent_color) // Skip transparent pixels
-                mlx_pixel_put(st_mlx->mlx, st_mlx->win, x + i, y + j, color);
+            color = *(int *)(data + (i * st_mlx->img_size_line + j * (st_mlx->img_bpp / 8)));
+            if ((color & 16777215) != 0)
+                mlx_pixel_put(st_mlx->mlx, st_mlx->win, x + j, y + i, color);
         }
     }
 }
@@ -30,19 +28,19 @@ void    paint_screen(t_mlx *st_mlx, int width, int height)
 {
 	int		x;
 	int     y;
-	int     img_width = 64;
-	int     img_height = 64;
+	int		img_size;
 
 	x = 0;
+	img_size = 64;
 	while (x < height)
 	{
 		y = 0;
 		while (y < width)
 		{
 			mlx_put_image_to_window(st_mlx->mlx, st_mlx->win, st_mlx->tile_img, y, x);
-			y += 64;
+			y += img_size;
 		}
-		x += 64;
+		x += img_size;
 	}
 }
 
@@ -52,16 +50,12 @@ int	put_assets(t_mlx *st_mlx, char c, int w, int h)
 	//TODO maybe check for errors here
 	if (c == '1')
 		draw_xpm_with_transparency(st_mlx, st_mlx->wall_img, w, h);// mlx_put_image_to_window(st_mlx.mlx, st_mlx.win, st_mlx.wall_img, w, h);
-		// mlx_put_image_to_window(st_mlx->mlx, st_mlx->win, st_mlx->wall_img, w, h);
 	if (c == 'P')
 		draw_xpm_with_transparency(st_mlx, st_mlx->player_img, w, h);
-		// mlx_put_image_to_window(st_mlx->mlx, st_mlx->win, st_mlx->player_img, w, h);
 	if (c == 'C')
 		draw_xpm_with_transparency(st_mlx, st_mlx->collec_img, w, h);
-		// mlx_put_image_to_window(st_mlx->mlx, st_mlx->win, st_mlx->collec_img, w, h);
 	if (c == 'E')
 		draw_xpm_with_transparency(st_mlx, st_mlx->exit_img, w, h);
-		// mlx_put_image_to_window(st_mlx->mlx, st_mlx->win, st_mlx->exit_img, w, h);
 	if (c == '0')
 		draw_xpm_with_transparency(st_mlx, st_mlx->tile_img, w, h);
 	return (1);
@@ -73,9 +67,11 @@ int	draw_screen(t_mlx *st_mlx, t_map *st_map)//TODO need to check case there is 
 	int		y;
 	int		w;
 	int		h;
+	int		img_size;
 
 	x = -1;
 	h = 0;
+	img_size = 64;
 	while (++x < st_map->height)
 	{
 		y = -1;
@@ -83,9 +79,9 @@ int	draw_screen(t_mlx *st_mlx, t_map *st_map)//TODO need to check case there is 
 		while (++y < st_map->length)
 		{
 			put_assets(st_mlx, st_map->map[x][y], w, h);
-			w += 64;
+			w += img_size;
 		}
-		h += 64;
+		h += img_size;
 	}
 	return (1);
 }

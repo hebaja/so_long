@@ -23,7 +23,6 @@ int	main(int argc, char **argv)
 		st_map_data = build_map_data(argv[1]);
 		validate_t_map_data(st_map_data);
 		build_mlx(&st_mlx, st_map_data);
-
 		paint_screen(&st_mlx, 64 * st_mlx.st_map->length -1, 64 * st_mlx.st_map->height);
 		draw_screen(&st_mlx, st_mlx.st_map);
 		mlx_hook(st_mlx.win, 2, 1L<<0, handle_input, &st_mlx);
@@ -33,7 +32,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		ft_putstr_fd("Error\nYou must insert a map path\n", 2);
+		ft_putstr_fd("Error\nYou must insert a valid map path\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

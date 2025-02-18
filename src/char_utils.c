@@ -36,18 +36,18 @@ int	collec_quant(char **map)
 	return (res);
 }
 
-int	*get_player_pos(char **map)
-{
-	int	*pos;
-
-	pos = map_iter_pos(map, 'P', get_char_y_pos);
-	return (pos);
-}
-
 int	invalid_chars_quant(char **map)
 {
 	int	res;
 
 	res = map_iter(map, check_valid_chars);
+	return (res);
+}
+
+int	is_char(char pos, char check)
+{
+	int	res;
+
+	res = pos == check;
 	return (res);
 }
