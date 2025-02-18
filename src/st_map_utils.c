@@ -6,7 +6,7 @@
 /*   By: hebatist <hebatist@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:03:31 by hebatist          #+#    #+#             */
-/*   Updated: 2025/02/12 01:13:33 by hebatist         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:50:27 by hebatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,8 @@ t_map	*build_st_map(t_map_data *st_map_data)
 	return (st_map);
 }
 
-t_map	*validate_and_build_t_map(char *map_name)
+void	validate_t_map_data(t_map_data *st_map_data)
 {
-	t_map_data	*st_map_data;
-	t_map		*st_map;
-
-	st_map_data = build_map_data(map_name);
 	if (st_map_data == NULL)
 		exit(EXIT_FAILURE);
 	if (st_map_data->length < 0 || !st_map_data->is_walls_valid
@@ -75,7 +71,4 @@ t_map	*validate_and_build_t_map(char *map_name)
 		clean_t_map_data(st_map_data);
 		print_inv_map_message();
 	}
-	st_map = build_st_map(st_map_data);
-	free(st_map_data);
-	return (st_map);
 }
