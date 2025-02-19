@@ -49,14 +49,14 @@ typedef struct s_map_data
 typedef struct s_mlx
 {
 	t_map	*st_map;
-	void    *mlx;
-	void    *win;
+	void	*mlx;
+	void	*win;
 	void	*tile_img;
-	void    *wall_img;
+	void	*wall_img;
 	void	*player_img;
 	void	*collec_img;
 	void	*exit_img;
-	int     img_size;
+	int		img_size;
 	int		img_bpp;
 	int		img_size_line;
 	int		img_endian;
@@ -81,13 +81,13 @@ void		get_next_pos(t_map *st_map, int direction, int is_vertical);
 void		move(t_map *st_map, int direction, int is_vertical);
 void		validate_t_map_data(t_map_data *st_map_data);
 void		get_player_pos(t_map *st_map);
+void		draw_screen(t_mlx *st_mlx, t_map *st_map);
 int			is_char(char pos, char check);
 int			is_all_collected(t_map *st_map);
 int			build_mlx(t_mlx *st_mlx, t_map_data *st_map_data);
 int			handle_input(int keycode, t_mlx *st_mlx);
 int			close_window(t_mlx *st_mlx);
 int			clean(t_mlx *st_mlx);
-int			draw_screen(t_mlx *st_mlx, t_map *st_map); /*TODO check return */
 int			get_map_length(char *map_name);
 int			get_map_height(char *map_name);
 int			is_one_player(char **map, int length, int height);
@@ -100,5 +100,8 @@ int			map_iter(char **map, int (*cmp)(char *line));;
 int			map_iter_char(char **map, char c, int (*cmp)(char *line, char c));
 int			check_char_quant(char *line, char c);
 int			check_valid_chars(char *line);
+
+//bonus
+void	put_moves_on_screen(t_mlx *st_mlx);
 
 #endif

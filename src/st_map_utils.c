@@ -18,7 +18,7 @@ void	open_map_error(void)
 	exit(EXIT_FAILURE);
 }
 
-char  **copy_map(t_map *st_map)
+char	**copy_map(t_map *st_map)
 {
 	int			i;
 	char		**map_copy;

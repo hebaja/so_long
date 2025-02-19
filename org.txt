@@ -1,3 +1,9 @@
+size_files:
+so_long.c
+mlx_draw_utils.c
+mlx_utils.cc
+
+
 char_utils ->
 int     exit_quant(char **map)
 int     player_quant(char **map)

@@ -58,7 +58,7 @@ void	get_player_pos(t_map *st_map)
 void	get_next_pos(t_map *st_map, int direction, int is_vertical)
 {
 	if (is_vertical)
-	{	
+	{
 		st_map->next_x = st_map->pos_x + direction;
 		st_map->next_y = st_map->pos_y;
 	}
@@ -71,30 +71,21 @@ void	get_next_pos(t_map *st_map, int direction, int is_vertical)
 
 void	move(t_map *st_map, int direction, int is_vertical)
 {
-	int	x;
-	int y;
-	int	nx;
-	int	ny;
-
 	get_player_pos(st_map);
 	get_next_pos(st_map, direction, is_vertical);
-	x = st_map->pos_x;
-	y = st_map->pos_y;
-	nx = st_map->next_x;
-	ny = st_map->next_y;
-	if (!is_char(st_map->map[nx][ny], '1'))
+	if (!is_char(st_map->map[st_map->next_x][st_map->next_y], '1'))
 	{
-		if (is_char(st_map->map[nx][ny], 'E'))
+		if (is_char(st_map->map[st_map->next_x][st_map->next_y], 'E'))
 		{
 			if (is_all_collected(st_map))
 				st_map->scaped = 1;
 			else
 				return ;
 		}
-		if (is_char(st_map->map[nx][ny], 'C'))
+		if (is_char(st_map->map[st_map->next_x][st_map->next_y], 'C'))
 			st_map->collected_collecs++;
-		st_map->map[x][y] = '0';
-		st_map->map[nx][ny] = 'P';
+		st_map->map[st_map->pos_x][st_map->pos_y] = '0';
+		st_map->map[st_map->next_x][st_map->next_y] = 'P';
 		st_map->moves++;
 	}
 }
