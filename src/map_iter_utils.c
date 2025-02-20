@@ -53,7 +53,7 @@ int	check_char_quant(char *line, char c)
 	i = 0;
 	res = 0;
 	length = ft_strlen(line);
-	while (++i < length - 1)
+	while (++i < length)
 		if (line[i] == c)
 			res++;
 	return (res);
@@ -66,7 +66,7 @@ int	get_char_y_pos(char *line, char c)
 
 	y = 0;
 	length = ft_strlen(line);
-	while (++y < length - 1)
+	while (++y < length)
 	{
 		if (line[y] == c)
 			return (y);

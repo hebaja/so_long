@@ -32,19 +32,13 @@ typedef struct s_map
 	int		collected_collecs;
 	int		moves;
 	int		scaped;
-}	t_map;
-
-typedef struct s_map_data
-{
-	char	**map;
-	int		length;
-	int		height;
+	
 	int		is_walls_valid;
 	int		invalid_chars_qt;
 	int		exit_qt;
 	int		player_qt;
 	int		collec_qt;
-}	t_map_data;
+}	t_map;
 
 typedef struct s_mlx
 {
@@ -62,36 +56,34 @@ typedef struct s_mlx
 	int		img_endian;
 }	t_mlx;
 
-t_map_data	*build_map_data(char *map_name);
-t_map		*build_st_map(t_map_data *st_map_data);
+# define IMG_SIZE 32
+
+t_map		*build_st_map(char *map_name);
+t_map		*validate_and_init_st_map(char *map_name);
 char		**get_map_content(char *map_name, int length, int height);
 char		**alloc_map_mem(int height);
 char		**copy_map(t_map *st_map);
 void		clean_map(char **map, int heigth);
 void		clean_t_map(t_map *st_map, int is_failure);
-void		clean_t_map_data(t_map_data *st_map_data);
-void		open_map_error(void);
-void		validate_path(t_map *st_map, int x, int y, int is_init);
+void		check_pathing(t_map *st_map, int x, int y, int is_init);
 void		print_inv_map_message(void);
 void		load_screen(t_map *st_map);
 void		paint_screen(t_mlx *st_mlx, int width, int height);
-void		gameplay_validation(t_map *st_map, t_map_data *st_map_data);
+void		gameplay_validation(t_map *st_map);
 void		get_next_pos(t_map *st_map, int direction, int is_vertical);
 void		move(t_map *st_map, int direction, int is_vertical);
-void		validate_t_map_data(t_map_data *st_map_data);
 void		get_player_pos(t_map *st_map);
 void		draw_screen(t_mlx *st_mlx, t_map *st_map);
 int			is_char(char pos, char check);
 int			is_all_collected(t_map *st_map);
-int			build_mlx(t_mlx *st_mlx, t_map_data *st_map_data);
+int			build_mlx(t_mlx *st_mlx, t_map *st_map, char *map_name);
 int			handle_input(int keycode, t_mlx *st_mlx);
-int			close_window(t_mlx *st_mlx);
 int			clean(t_mlx *st_mlx);
 int			get_map_length(char *map_name);
 int			get_map_height(char *map_name);
 int			is_one_player(char **map, int length, int height);
+int			map_has_valid_walls(t_map *st_map);
 int			invalid_chars_quant(char **map);
-int			map_has_valid_walls(char **map, int length, int height);
 int			exit_quant(char **map);
 int			player_quant(char **map);
 int			collec_quant(char **map);

@@ -18,17 +18,15 @@ void	draw_xpm_with_transparency(t_mlx *st_mlx, void *img, int x, int y)
 	int				i;
 	int				j;
 	int				color;
-	int				img_size;
 	char			*data;
 
 	i = -1;
-	img_size = 32;
 	data = mlx_get_data_addr(
 			img, &st_mlx->img_bpp, &st_mlx->img_size_line, &st_mlx->img_endian);
-	while (++i < img_size)
+	while (++i < IMG_SIZE)
 	{
 		j = -1;
-		while (++j < img_size)
+		while (++j < IMG_SIZE)
 		{
 			color = *(int *)(data + (i * st_mlx->img_size_line
 						+ j * (st_mlx->img_bpp / 8)));
@@ -44,10 +42,8 @@ void	paint_screen(t_mlx *st_mlx, int width, int height)
 {
 	int		x;
 	int		y;
-	int		img_size;
 
 	x = 0;
-	img_size = 32;
 	while (x < height)
 	{
 		y = 0;
@@ -55,9 +51,9 @@ void	paint_screen(t_mlx *st_mlx, int width, int height)
 		{
 			mlx_put_image_to_window(
 				st_mlx->mlx, st_mlx->win, st_mlx->tile_img, y, x);
-			y += img_size;
+			y += IMG_SIZE;
 		}
-		x += img_size;
+		x += IMG_SIZE;
 	}
 }
 
@@ -77,15 +73,13 @@ void	put_assets(t_mlx *st_mlx, char c, int w, int h)
 
 void	draw_screen(t_mlx *st_mlx, t_map *st_map)
 {
-	int     x;
+	int		x;
 	int		y;
 	int		w;
 	int		h;
-	int		img_size;
 
 	x = -1;
 	h = 0;
-	img_size = 32;
 	while (++x < st_map->height)
 	{
 		y = -1;
@@ -93,9 +87,9 @@ void	draw_screen(t_mlx *st_mlx, t_map *st_map)
 		while (++y < st_map->length)
 		{
 			put_assets(st_mlx, st_map->map[x][y], w, h);
-			w += img_size;
+			w += IMG_SIZE;
 		}
-		h += img_size;
+		h += IMG_SIZE;
 	}
 	put_moves_on_screen(st_mlx);
 }

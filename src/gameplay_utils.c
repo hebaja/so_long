@@ -20,7 +20,7 @@ int	is_all_collected(t_map *st_map)
 	return (res);
 }
 
-void	gameplay_validation(t_map *st_map, t_map_data *st_map_data)
+void	gameplay_validation(t_map *st_map)
 {
 	int	collec_qt;
 
@@ -30,7 +30,6 @@ void	gameplay_validation(t_map *st_map, t_map_data *st_map_data)
 		|| !st_map->exit_found)
 	{
 		ft_putstr_fd("Error\nInvalid map\n", 2);
-		free(st_map_data);
 		clean_t_map(st_map, 1);
 	}
 }
@@ -41,10 +40,12 @@ void	get_player_pos(t_map *st_map)
 	int	y;
 
 	x = 0;
+	st_map->pos_x = 0;
+	st_map->pos_y = 0;
 	while (++x < st_map->height -1)
 	{
 		y = 0;
-		while (++y < st_map->length -1)
+		while (++y < st_map->length)
 		{
 			if (st_map->map[x][y] == 'P')
 			{

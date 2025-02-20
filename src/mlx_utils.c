@@ -13,12 +13,6 @@
 #include "../include/so_long.h"
 #include "../minilibx-linux/mlx.h"
 
-int	close_window(t_mlx *st_mlx)
-{
-	clean(st_mlx);
-	exit(EXIT_SUCCESS);
-}
-
 int	clean(t_mlx *st_mlx)
 {
 	clean_t_map(st_mlx->st_map, 0);
@@ -38,17 +32,14 @@ int	clean(t_mlx *st_mlx)
 	return (0);
 }
 
-int	build_mlx(t_mlx *st_mlx, t_map_data *st_map_data)
+int	build_mlx(t_mlx *st_mlx, t_map *st_map, char *map_name)
 {
-	st_mlx->img_size = 32;
-	st_mlx->st_map = build_st_map(st_map_data);
-	validate_path(
-		st_mlx->st_map, st_mlx->st_map->pos_x, st_mlx->st_map->pos_y, 1);
-	gameplay_validation(st_mlx->st_map, st_map_data);
+	st_mlx->img_size = IMG_SIZE;
+	st_mlx->st_map = build_st_map(map_name);
 	st_mlx->mlx = mlx_init();
 	st_mlx->win = mlx_new_window(st_mlx->mlx,
-			st_mlx->img_size * (st_map_data->length -1),
-			st_mlx->img_size * st_map_data->height, "so_long");
+			st_mlx->img_size * (st_map->length),
+			st_mlx->img_size * st_map->height, "so_long");
 	st_mlx->tile_img = mlx_xpm_file_to_image(st_mlx->mlx,
 			"./assets/tile.xpm", &st_mlx->img_size, &st_mlx->img_size);
 	st_mlx->wall_img = mlx_xpm_file_to_image(st_mlx->mlx,
@@ -60,10 +51,9 @@ int	build_mlx(t_mlx *st_mlx, t_map_data *st_map_data)
 	st_mlx->exit_img = mlx_xpm_file_to_image(st_mlx->mlx,
 			"./assets/exit.xpm", &st_mlx->img_size, &st_mlx->img_size);
 	if (st_mlx->tile_img == NULL || st_mlx->wall_img == NULL
-			|| st_mlx->player_img == NULL || st_mlx->collec_img == NULL
-			|| st_mlx->exit_img == NULL)
+		|| st_mlx->player_img == NULL || st_mlx->collec_img == NULL
+		|| st_mlx->exit_img == NULL)
 		return (0);
-	free(st_map_data);
 	return (1);
 }
 

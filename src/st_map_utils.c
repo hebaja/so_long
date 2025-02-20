@@ -12,10 +12,14 @@
 
 #include "../include/so_long.h"
 
-void	open_map_error(void)
+char	**alloc_map_mem(int height)
 {
-	perror("Error\nMap file not found");
-	exit(EXIT_FAILURE);
+	char	**map;
+
+	map = ft_calloc(height + 1, sizeof(char *));
+	if (map == NULL)
+		return (NULL);
+	return (map);
 }
 
 char	**copy_map(t_map *st_map)
@@ -37,38 +41,37 @@ char	**copy_map(t_map *st_map)
 	return (map_copy);
 }
 
-t_map	*build_st_map(t_map_data *st_map_data)
+void	validate_st_map(t_map *st_map)
+{
+	if (st_map->length < 0 || !st_map->is_walls_valid
+		|| st_map->invalid_chars_qt > 0 || st_map->exit_qt != 1
+		|| st_map->player_qt != 1 || st_map->collec_qt < 1)
+	{
+		ft_putstr_fd("Error\nIvalid map\n", 2);
+		clean_t_map(st_map, 1);
+	}
+}
+
+t_map	*build_st_map(char *map_name)
 {
 	t_map	*st_map;
 
-	st_map = (t_map *)malloc(sizeof(t_map));
-	if (st_map == NULL)
-	{
-		clean_map(st_map_data->map, st_map_data->height);
-		exit(EXIT_FAILURE);
-	}
-	st_map->length = st_map_data->length;
-	st_map->height = st_map_data->height;
-	st_map->map = st_map_data->map;
+	st_map = validate_and_init_st_map(map_name);
 	st_map->exit_found = 0;
 	st_map->gettable_collecs = 0;
 	st_map->collected_collecs = 0;
 	st_map->moves = 0;
 	st_map->scaped = 0;
-	st_map->map_copy = copy_map(st_map);
+	st_map->is_walls_valid = map_has_valid_walls(st_map);
+	st_map->invalid_chars_qt = invalid_chars_quant(st_map->map);
+	st_map->exit_qt = exit_quant(st_map->map);
+	st_map->player_qt = player_quant(st_map->map);
+	st_map->collec_qt = collec_quant(st_map->map);
+	st_map->map_copy = NULL;
 	get_player_pos(st_map);
+	validate_st_map(st_map);
+	st_map->map_copy = copy_map(st_map);
+	check_pathing(st_map, st_map->pos_x, st_map->pos_y, 1);
+	gameplay_validation(st_map);
 	return (st_map);
-}
-
-void	validate_t_map_data(t_map_data *st_map_data)
-{
-	if (st_map_data == NULL)
-		exit(EXIT_FAILURE);
-	if (st_map_data->length < 0 || !st_map_data->is_walls_valid
-		|| st_map_data->invalid_chars_qt > 0 || st_map_data->exit_qt != 1
-		|| st_map_data->player_qt != 1 || st_map_data->collec_qt < 1)
-	{
-		clean_t_map_data(st_map_data);
-		print_inv_map_message();
-	}
 }

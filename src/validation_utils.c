@@ -21,39 +21,39 @@ int	check_valid_chars(char *line)
 	i = -1;
 	res = 0;
 	length = ft_strlen(line);
-	while (++i < length - 1)
+	while (++i < length)
 		if (line[i] != '0' && line[i] != '1' && line[i] != 'P'
 			&& line[i] != 'C' && line[i] != 'E')
 			res++;
 	return (res);
 }
 
-int	map_has_valid_walls(char **map, int length, int height)
+int	map_has_valid_walls(t_map *st_map)
 {
 	int	i;
 	int	j;
 
 	i = -1;
 	j = -1;
-	if (height == 1)
+	if (st_map->height == 1)
 		return (0);
-	while (++i < length - 1)
-		if (map[0][i] != '1')
+	while (++i < st_map->length)
+		if (st_map->map[0][i] != '1')
 			return (0);
 	i = 0;
-	
-	while (++i < height - 1)
+	while (++i < st_map->height - 1)
 	{
-		if (map[i][0] != '1' || map[i][length - 2] != '1')
+		if (st_map->map[i][0] != '1'
+			|| st_map->map[i][st_map->length - 1] != '1')
 			return (0);
 	}
-	while (++j < length - 1)
-		if (map[i][j] != '1')
+	while (++j < st_map->length)
+		if (st_map->map[i][j] != '1')
 			return (0);
 	return (1);
 }
 
-void	validate_path(t_map *st_map, int x, int y, int is_init)
+void	check_pathing(t_map *st_map, int x, int y, int is_init)
 {
 	if (!is_init)
 	{
@@ -68,62 +68,46 @@ void	validate_path(t_map *st_map, int x, int y, int is_init)
 	}
 	st_map->map_copy[x][y] = 'X';
 	if (x - 1 >= 0)
-		validate_path(st_map, x - 1, y, 0);
-	if (y + 1 < st_map->length - 1)
-		validate_path(st_map, x, y + 1, 0);
+		check_pathing(st_map, x - 1, y, 0);
+	if (y + 1 < st_map->length)
+		check_pathing(st_map, x, y + 1, 0);
 	if (x + 1 < st_map->height - 1)
-		validate_path(st_map, x + 1, y, 0);
+		check_pathing(st_map, x + 1, y, 0);
 	if (y - 1 >= 0)
-		validate_path(st_map, x, y - 1, 0);
+		check_pathing(st_map, x, y - 1, 0);
 }
 
-int	get_map_length(char *map_name)
+void	case_memory_allocation_error(void)
 {
-	int			fd;
-	char		*str;
-	size_t		len;
-
-	fd = open(map_name, O_RDONLY);
-	if (fd < 0)
-		return (-1);
-	str = get_next_line(fd);
-	if (str == NULL)
-		return (-2);
-	len = ft_strlen(str);
-	while (str != NULL)
-	{
-		free(str);
-		str = get_next_line(fd);
-		if (str != NULL && len != ft_strlen(str))
-		{
-			free(str);
-			close(fd);
-			return (-2);
-		}
-	}
-	free (str);
-	close(fd);
-	return (len);
+	ft_putstr_fd("Error\nProblem allocating memory\n", 2);
+	exit(EXIT_FAILURE);
 }
 
-int	get_map_height(char *map_name)
+t_map	*validate_and_init_st_map(char *map_name)
 {
-	int			fd;
-	char		*str;
-	size_t		len;
+	char	**map;
+	t_map	*st_map;
+	int		length;
+	int		height;
 
-	len = 0;
-	fd = open(map_name, O_RDONLY);
-	if (fd < 0)
-		return (-1);
-	str = get_next_line(fd);
-	if (str == NULL)
-		return (-2);
-	while (str != NULL)
+	length = get_map_length(map_name);
+	height = get_map_height(map_name);
+	if (length < 3 || height < 3)
 	{
-		free(str);
-		str = get_next_line(fd);
-		len++;
+		ft_putstr_fd("Error\nInvalid map\n", 2);
+		exit(EXIT_FAILURE);
 	}
-	return (len);
+	map = get_map_content(map_name, length, height);
+	if (map == NULL)
+		case_memory_allocation_error();
+	st_map = (t_map *)malloc(sizeof(t_map));
+	if (st_map == NULL)
+	{
+		clean_map(map, height);
+		case_memory_allocation_error();
+	}
+	st_map->length = length;
+	st_map->height = height;
+	st_map->map = map;
+	return (st_map);
 }

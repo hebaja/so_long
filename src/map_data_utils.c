@@ -12,9 +12,9 @@
 
 #include "../include/so_long.h"
 
-void	print_inv_map_message(void)
+void	open_map_error(void)
 {
-	ft_putstr_fd("Error\nInvalid map\n", 2);
+	perror("Error\nMap file not found");
 	exit(EXIT_FAILURE);
 }
 
@@ -31,7 +31,7 @@ void	copy_map_lines(char **map, char *map_name, int length)
 	str = get_next_line(fd);
 	while (str != NULL)
 	{
-		ft_strlcpy(map[i++], str, length);
+		ft_strlcpy(map[i++], str, length + 1);
 		free(str);
 		str = get_next_line(fd);
 	}
@@ -52,7 +52,7 @@ char	**get_map_content(char *map_name, int length, int height)
 	i = -1;
 	while (++i < height)
 	{
-		map[i] = ft_calloc(length, sizeof(char));
+		map[i] = ft_calloc(length + 1, sizeof(char));
 		if (map[i] == NULL)
 		{
 			clean_map(map, height);
@@ -61,50 +61,4 @@ char	**get_map_content(char *map_name, int length, int height)
 	}
 	copy_map_lines(map, map_name, length);
 	return (map);
-}
-
-int	fill_data(t_map_data *st_map_data, char *map_name, int length, int height)
-{
-	char	**map;
-
-	map = get_map_content(map_name, length, height);
-	if (map == NULL)
-	{
-		free(st_map_data);
-		return (0);
-	}
-	st_map_data->length = length;
-	st_map_data->height = height;
-	st_map_data->map = map;
-	st_map_data->is_walls_valid = map_has_valid_walls(map,
-			st_map_data->length,
-			st_map_data->height);
-	st_map_data->invalid_chars_qt = invalid_chars_quant(map);
-	st_map_data->exit_qt = exit_quant(map);
-	st_map_data->player_qt = player_quant(map);
-	st_map_data->collec_qt = collec_quant(map);
-	return (1);
-}
-
-t_map_data	*build_map_data(char *map_name)
-{
-	int			length;
-	int			height;
-	t_map_data	*st_map_data;
-
-	length = get_map_length(map_name);
-	height = get_map_height(map_name);
-	if (length == -1 || height == -1)
-	{
-		perror("Error\nProblem reading map file");
-		return (NULL);
-	}
-	else if (length == -2 || height == -2)
-	{
-		ft_putstr_fd("Error\nInvalid map\n", 2);
-		return (NULL);
-	}
-	st_map_data = (t_map_data *)malloc(sizeof(t_map_data));
-	fill_data(st_map_data, map_name, length, height);
-	return (st_map_data);
 }

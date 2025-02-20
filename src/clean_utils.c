@@ -12,16 +12,6 @@
 
 #include "../include/so_long.h"
 
-char	**alloc_map_mem(int height)
-{
-	char	**map;
-
-	map = ft_calloc(height + 1, sizeof(char *));
-	if (map == NULL)
-		return (NULL);
-	return (map);
-}
-
 void	clean_map(char **map, int height)
 {
 	int	i;
@@ -42,12 +32,4 @@ void	clean_t_map(t_map *st_map, int is_failure)
 	st_map = NULL;
 	if (is_failure)
 		exit(EXIT_FAILURE);
-}
-
-void	clean_t_map_data(t_map_data *st_map_data)
-{
-	clean_map(st_map_data->map, st_map_data->height);
-	st_map_data->map = NULL;
-	free(st_map_data);
-	st_map_data = NULL;
 }
