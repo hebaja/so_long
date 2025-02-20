@@ -35,10 +35,13 @@ int	map_has_valid_walls(char **map, int length, int height)
 
 	i = -1;
 	j = -1;
+	if (height == 1)
+		return (0);
 	while (++i < length - 1)
 		if (map[0][i] != '1')
 			return (0);
 	i = 0;
+	
 	while (++i < height - 1)
 	{
 		if (map[i][0] != '1' || map[i][length - 2] != '1')

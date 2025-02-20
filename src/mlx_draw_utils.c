@@ -34,6 +34,8 @@ void	draw_xpm_with_transparency(t_mlx *st_mlx, void *img, int x, int y)
 						+ j * (st_mlx->img_bpp / 8)));
 			if ((color & 16777215) != 0)
 				mlx_pixel_put(st_mlx->mlx, st_mlx->win, x + j, y + i, color);
+			else
+				mlx_pixel_put(st_mlx->mlx, st_mlx->win, x + j, y + i, 16187349);
 		}
 	}
 }

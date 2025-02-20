@@ -20,7 +20,7 @@ int	is_all_collected(t_map *st_map)
 	return (res);
 }
 
-void	gameplay_validation(t_map *st_map)
+void	gameplay_validation(t_map *st_map, t_map_data *st_map_data)
 {
 	int	collec_qt;
 
@@ -30,6 +30,7 @@ void	gameplay_validation(t_map *st_map)
 		|| !st_map->exit_found)
 	{
 		ft_putstr_fd("Error\nInvalid map\n", 2);
+		free(st_map_data);
 		clean_t_map(st_map, 1);
 	}
 }
@@ -87,5 +88,6 @@ void	move(t_map *st_map, int direction, int is_vertical)
 		st_map->map[st_map->pos_x][st_map->pos_y] = '0';
 		st_map->map[st_map->next_x][st_map->next_y] = 'P';
 		st_map->moves++;
+		ft_printf("%d\n", st_map->moves);
 	}
 }

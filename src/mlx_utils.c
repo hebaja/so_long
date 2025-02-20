@@ -44,7 +44,7 @@ int	build_mlx(t_mlx *st_mlx, t_map_data *st_map_data)
 	st_mlx->st_map = build_st_map(st_map_data);
 	validate_path(
 		st_mlx->st_map, st_mlx->st_map->pos_x, st_mlx->st_map->pos_y, 1);
-	gameplay_validation(st_mlx->st_map);
+	gameplay_validation(st_mlx->st_map, st_map_data);
 	st_mlx->mlx = mlx_init();
 	st_mlx->win = mlx_new_window(st_mlx->mlx,
 			st_mlx->img_size * (st_map_data->length -1),
@@ -71,7 +71,6 @@ void	draw_move(t_mlx *st_mlx, int direction, int is_vertical)
 {
 	move(st_mlx->st_map, direction, is_vertical);
 	draw_screen(st_mlx, st_mlx->st_map);
-	ft_printf("%d\n", st_mlx->st_map->moves);
 }
 
 int	handle_input(int keycode, t_mlx *st_mlx)
