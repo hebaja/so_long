@@ -1,5 +1,6 @@
 CC=cc
 CC_FLAGS= -Wall -Wextra -Werror
+MLX_FLAGS= -Lminilibx-linux -lmlx -lX11 -lXext 
 NAME=libsolong.a
 INC_DIR=include
 SRC_DIR=src
@@ -7,14 +8,14 @@ SRC_FILES=alloc_mem_utils.c char_utils.c gameplay_utils.c map_data_utils.c map_i
 	  so_long.c st_map_utils.c validation_utils.c
 BONUS_SRC_FILES=mlx_draw_utils_bonus.c
 LIBFT=lib/libft/libft.a
-MINILIBX=lib/mini
+MINILIBX=lib/minilibx-linux/libmlx_Linux.a
 SRCS=$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 BONUS_SRCS=$(addprefix $(SRC_DIR)/, $(BONUS_SRC_FILES))
 OBJS=$(SRCS:.c=.o)
 BONUS_OBJS=$(BONUS_SRCS:.c=.o)
 
 all: $(NAME) $(LIBFT)
-	cc $(CC_FLAGS) -L. -lpipex -Llibft/ -lft -o pipex
+	cc $(CC_FLAGS) $(MLX_FLAGS) -Llib/libmlx_Linux -lmlx_linux -Llib/libft/ -lft --L. -lsolon go so_long
 
 $(LIBFT):
 	make -C libft/
