@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hebatist <hebatist@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 01:16:49 by hebatist          #+#    #+#             */
-/*   Updated: 2025/02/17 21:33:48 by hebatist         ###   ########.fr       */
+/*   Created: 2025/02/21 01:26:52 by hebatist          #+#    #+#             */
+/*   Updated: 2025/02/21 01:26:54 by hebatist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -62,7 +62,6 @@ t_map		*build_st_map(char *map_name);
 t_map		*validate_and_init_st_map(char *map_name);
 char		**get_map_content(char *map_name, int length, int height);
 char		**alloc_map_mem(int height);
-char		**copy_map(t_map *st_map);
 void		clean_map(char **map, int heigth);
 void		clean_t_map(t_map *st_map, int is_failure);
 void		check_pathing(t_map *st_map, int x, int y, int is_init);
@@ -73,6 +72,7 @@ void		get_next_pos(t_map *st_map, int direction, int is_vertical);
 void		move(t_map *st_map, int direction, int is_vertical);
 void		get_player_pos(t_map *st_map);
 void		draw_screen(t_mlx *st_mlx, t_map *st_map);
+void		put_moves_on_screen(t_mlx *st_mlx);
 void		case_memory_allocation_error(void);
 int			is_char(char pos, char check);
 int			is_all_collected(t_map *st_map);

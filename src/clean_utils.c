@@ -33,3 +33,9 @@ void	clean_t_map(t_map *st_map, int is_failure)
 	if (is_failure)
 		exit(EXIT_FAILURE);
 }
+
+void	case_memory_allocation_error(void)
+{
+	ft_putstr_fd("Error\nProblem allocating memory\n", 2);
+	exit(EXIT_FAILURE);
+}

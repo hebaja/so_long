@@ -67,10 +67,8 @@ t_map	*build_st_map(char *map_name)
 	st_map->exit_qt = exit_quant(st_map->map);
 	st_map->player_qt = player_quant(st_map->map);
 	st_map->collec_qt = collec_quant(st_map->map);
-	st_map->map_copy = NULL;
 	get_player_pos(st_map);
 	validate_st_map(st_map);
-	st_map->map_copy = copy_map(st_map);
 	check_pathing(st_map, st_map->pos_x, st_map->pos_y, 1);
 	gameplay_validation(st_map);
 	return (st_map);

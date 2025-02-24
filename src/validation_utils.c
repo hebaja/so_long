@@ -77,10 +77,16 @@ void	check_pathing(t_map *st_map, int x, int y, int is_init)
 		check_pathing(st_map, x, y - 1, 0);
 }
 
-void	case_memory_allocation_error(void)
+void	set_copy_and_size(t_map *st_map, char *map_name, int length, int height)
 {
-	ft_putstr_fd("Error\nProblem allocating memory\n", 2);
-	exit(EXIT_FAILURE);
+	char	**map_copy;
+
+	map_copy = get_map_content(map_name, length, height);
+	if (map_copy == NULL)
+		case_memory_allocation_error();
+	st_map->map_copy = map_copy;
+	st_map->length = length;
+	st_map->height = height;
 }
 
 t_map	*validate_and_init_st_map(char *map_name)
@@ -92,7 +98,7 @@ t_map	*validate_and_init_st_map(char *map_name)
 
 	length = get_map_length(map_name);
 	height = get_map_height(map_name);
-	if (length < 3 || height < 3)
+	if (length < 3 || length > 56 || height < 3 || height > 30)
 	{
 		ft_putstr_fd("Error\nInvalid map\n", 2);
 		exit(EXIT_FAILURE);
@@ -106,8 +112,7 @@ t_map	*validate_and_init_st_map(char *map_name)
 		clean_map(map, height);
 		case_memory_allocation_error();
 	}
-	st_map->length = length;
-	st_map->height = height;
 	st_map->map = map;
+	set_copy_and_size(st_map, map_name, length, height);
 	return (st_map);
 }

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-#include "../minilibx-linux/mlx.h"
 
 int	clean(t_mlx *st_mlx)
 {

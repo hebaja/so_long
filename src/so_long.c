@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-#include "../minilibx-linux/mlx.h"
 
 void	error_loading_mlx(t_mlx *st_mlx)
 {
@@ -36,10 +35,8 @@ int	main(int argc, char **argv)
 		st_map = build_st_map(argv[1]);
 		if (!build_mlx(&st_mlx, st_map, argv[1]))
 			error_loading_mlx(&st_mlx);
-		clean_t_map(st_map, 0);
-		paint_screen(&st_mlx, IMG_SIZE * st_mlx.st_map->length,
-			IMG_SIZE * st_mlx.st_map->height);
 		draw_screen(&st_mlx, st_mlx.st_map);
+		clean_t_map(st_map, 0);
 		mlx_hook(st_mlx.win, 2, 1L << 0, handle_input, &st_mlx);
 		mlx_hook(st_mlx.win, 17, 0, close_window, &st_mlx);
 		mlx_loop(st_mlx.mlx);
